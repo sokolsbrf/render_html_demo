@@ -19,14 +19,8 @@ import javax.xml.parsers.SAXParserFactory;
 
 import ru.dimasokol.customhtml.css.ColorStyler;
 import ru.dimasokol.customhtml.css.FontColorParser;
-import ru.dimasokol.customhtml.stylers.BTagStyler;
-import ru.dimasokol.customhtml.stylers.H1TagStyler;
-import ru.dimasokol.customhtml.stylers.H2TagStyler;
-import ru.dimasokol.customhtml.stylers.ITagStyler;
-import ru.dimasokol.customhtml.stylers.LiTagStyler;
-import ru.dimasokol.customhtml.stylers.PTagStyler;
 import ru.dimasokol.customhtml.stylers.TagStyler;
-import ru.dimasokol.customhtml.stylers.UlTagStyler;
+import ru.dimasokol.customhtml.stylers.TagStylersRegistry;
 
 /**
  * @author Дмитрий Соколов <DPSokolov.SBT@sberbank.ru>
@@ -34,7 +28,7 @@ import ru.dimasokol.customhtml.stylers.UlTagStyler;
 public class SaxCustomHtml {
 
     private SAXParser mParser;
-    private Map<String, TagStyler> mStylers = new HashMap<>();
+    private final Map<String, TagStyler> mStylers;
 
     public SaxCustomHtml(Context context) {
 
@@ -47,13 +41,8 @@ public class SaxCustomHtml {
             e.printStackTrace();
         }
 
-        mStylers.put(H1TagStyler.TAG, new H1TagStyler(context));
-        mStylers.put(H2TagStyler.TAG, new H2TagStyler(context));
-        mStylers.put(ITagStyler.TAG, new ITagStyler());
-        mStylers.put(BTagStyler.TAG, new BTagStyler());
-        mStylers.put(UlTagStyler.TAG, new UlTagStyler());
-        mStylers.put(LiTagStyler.TAG, new LiTagStyler());
-        mStylers.put(PTagStyler.TAG, new PTagStyler());
+        TagStylersRegistry registry = new TagStylersRegistry(context);
+        mStylers = registry.getStylers();
     }
 
     public Spanned fromHtml(String html) {

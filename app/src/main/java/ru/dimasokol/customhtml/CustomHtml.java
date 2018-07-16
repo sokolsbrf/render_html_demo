@@ -10,35 +10,23 @@ import org.jsoup.nodes.Element;
 import org.jsoup.nodes.Node;
 import org.jsoup.nodes.TextNode;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import ru.dimasokol.customhtml.stylers.BTagStyler;
-import ru.dimasokol.customhtml.stylers.H1TagStyler;
-import ru.dimasokol.customhtml.stylers.H2TagStyler;
-import ru.dimasokol.customhtml.stylers.ITagStyler;
-import ru.dimasokol.customhtml.stylers.LiTagStyler;
-import ru.dimasokol.customhtml.stylers.PTagStyler;
 import ru.dimasokol.customhtml.stylers.TagStyler;
-import ru.dimasokol.customhtml.stylers.UlTagStyler;
+import ru.dimasokol.customhtml.stylers.TagStylersRegistry;
 
 /**
  * @author Дмитрий Соколов <DPSokolov.SBT@sberbank.ru>
  */
 public class CustomHtml {
 
-    private Map<String, TagStyler> mStylers = new HashMap<>();
+    private final Map<String, TagStyler> mStylers;
     private int mTextBlocksCount = 0;
 
     public CustomHtml(Context context) {
-        mStylers.put(H1TagStyler.TAG, new H1TagStyler(context));
-        mStylers.put(H2TagStyler.TAG, new H2TagStyler(context));
-        mStylers.put(ITagStyler.TAG, new ITagStyler());
-        mStylers.put(BTagStyler.TAG, new BTagStyler());
-        mStylers.put(UlTagStyler.TAG, new UlTagStyler());
-        mStylers.put(LiTagStyler.TAG, new LiTagStyler());
-        mStylers.put(PTagStyler.TAG, new PTagStyler());
+        TagStylersRegistry registry = new TagStylersRegistry(context);
+        mStylers = registry.getStylers();
     }
 
     public Spanned fromHtml(String html) {
