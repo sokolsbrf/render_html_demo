@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">CustomHtml</string>
+
+    <string name="default_html"><![CDATA[
+
+    <body><h1>Заголовок</h1><h2>Подзаголовок c <i>курсивом</i> внутри</h2>
+    <p>Простой текст с <b>жирным</b> словом. И не просто жирным, а ещё и <b style=\"color: #ff0000;\">красным</b>!</p>
+    <ul>
+        <li>Пункт списка</li><li>Ещё пункт</li><li>И ещё один</li>
+    </ul>
+    </body>
+
+    ]]>
+    </string>
+
+    <string name="button_view">Посмотреть</string>
+    <string name="check_sax">Использовать SAX</string>
+</resources>
